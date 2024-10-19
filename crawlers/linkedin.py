@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup as bs
 import time
 import json
+import os
+import shutil
 
 VERIFICATION_TIME = 10
 SCROLL_PAUSE_TIME = 3
@@ -74,9 +76,29 @@ def fetch_posts(email, password, page):
     ]
     return containers
 
-
 def make_post_data(containers, username):
-    path_to_store=f"data/{username}_data.json"
+    # Define the path to store the JSON file
+    path_to_store = f"data/{username}_data.json"
+    
+    # Define the folder path
+    data_folder = "data"
+    
+    # Ensure the data folder is empty before storing new files
+    if os.path.exists(data_folder):
+        # Remove all files in the folder
+        for filename in os.listdir(data_folder):
+            file_path = os.path.join(data_folder, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)  # Remove file or link
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)  # Remove directory
+            except Exception as e:
+                print(f"Failed to delete {file_path}. Reason: {e}")
+    else:
+        # Create the folder if it doesn't exist
+        os.makedirs(data_folder)
+    
     # Define a data structure to hold all the post information
     post_data = {}
     post_data["Name"] = username
@@ -91,8 +113,13 @@ def make_post_data(containers, username):
         post_text = post_text.replace("hashtag", "")
         post_text = post_text.replace('"', "")
         post_text = post_text.replace("\n", "")
-        if post_text != "": # if content is not empty
-            post_data["Posts"][post_id] = {"text": post_text, "name": username, "source": "Linkedin"}
+        if post_text != "":  # if content is not empty
+            post_data["Posts"][post_id] = {
+                "text": post_text,
+                "name": username,
+                "source": "Linkedin"
+            }
 
+    # Save the post data to the specified file
     with open(path_to_store, "w") as f:
         json.dump(post_data, f, ensure_ascii=False)

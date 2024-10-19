@@ -18,13 +18,12 @@ def create_rag_chain(retriever: LangChainQdrantRetriever):
         raise ValueError("Retriever cannot be None")
     llm = Together(
     model="meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
-    together_api_key=settings.TOGETHER_API_KEY
+    together_api_key=settings.TOGETHER_API_KEY,
+    max_tokens=200
 )
     # Pull the RAG prompt from langchain hub
     prompt = hub.pull("rlm/rag-prompt")
-
-    # Initialize LLM
-    # llm = TogetherLLM()
+    print(prompt)
 
     # Define the chain
     rag_chain = (

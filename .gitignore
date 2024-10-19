@@ -7,7 +7,6 @@ ENV/
 
 # Ignore environment variables
 .env
-.env.*
 
 # Ignore Python cache
 __pycache__/
