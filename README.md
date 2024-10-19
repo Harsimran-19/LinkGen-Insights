@@ -1,4 +1,4 @@
-# LinkedIn Posts Analysis System
+# LinkGen-Insights
 
 This project implements a system to extract, process, and analyze LinkedIn posts using advanced natural language processing and a Retrieval-Augmented Generation (RAG) architecture. It provides insights into LinkedIn posts by utilizing Qdrant for vector-based semantic search and Streamlit for an interactive user interface.
 
