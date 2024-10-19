@@ -29,15 +29,17 @@ This will set up and run Qdrant in a Docker container on port 6333.
 Install Dependencies
 To install the necessary dependencies using Poetry, run:
 
-bash
-Copy code
+
+```bash
 poetry install
+```
+
 Running the Application
 Once Qdrant is up and dependencies are installed, you can run the application locally with:
 
-bash
-Copy code
+```bash
 poetry run streamlit run app.py
+```
 This will launch the interactive Streamlit interface for querying LinkedIn posts.
 
 Technologies Used
